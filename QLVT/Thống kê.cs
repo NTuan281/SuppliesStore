@@ -23,7 +23,7 @@ namespace QLVT
             InitializeComponent();
             this.loai = loai;
         }
-        SqlConnection cnn = new SqlConnection(@"Data Source=DESKTOP-61R69JO\SQLEXPRESS;Initial Catalog=QUAN_LY_VAT_TU;Integrated Security=True");
+        SqlConnection cnn = new SqlConnection(@"Data Source=TUAN\MSSQLSERVER01;Initial Catalog=QUAN_LY_VAT_TU;Integrated Security=True");
         private void LoadDataKho()
         {
             dgvBC_Kho.Rows.Clear();
@@ -36,7 +36,7 @@ namespace QLVT
             foreach (DataRow dr in dt.Rows)
             {
                 dgvBC_Kho.Rows.Add();
-                dgvBC_Kho.Rows[i].Cells[0].Value = dr.Field<string>(0);
+                dgvBC_Kho.Rows[i].Cells[0].Value = dr.Field<int>(0);
                 dgvBC_Kho.Rows[i].Cells[1].Value = dr.Field<string>(1);
                 dgvBC_Kho.Rows[i].Cells[2].Value = dr.Field<int>(2);
                 dgvBC_Kho.Rows[i].Cells[3].Value = dr.Field<string>(3);
@@ -79,7 +79,7 @@ namespace QLVT
             foreach (DataRow dr in dt.Rows)
             {
                 dgvBC_Xuat.Rows.Add();
-                dgvBC_Xuat.Rows[i].Cells[0].Value = dr.Field<string>(0);
+                dgvBC_Xuat.Rows[i].Cells[0].Value = dr.Field<int>(0);
                 dgvBC_Xuat.Rows[i].Cells[1].Value = dr.Field<string>(1);
                 dgvBC_Xuat.Rows[i].Cells[2].Value = dr.Field<string>(2);
                 dgvBC_Xuat.Rows[i].Cells[3].Value = dr.Field<int>(3);
@@ -101,7 +101,7 @@ namespace QLVT
             foreach (DataRow dr in dt.Rows)
             {
                 dgvTK_NCC.Rows.Add();
-                dgvTK_NCC.Rows[i].Cells[0].Value = dr.Field<string>(0);
+                dgvTK_NCC.Rows[i].Cells[0].Value = dr.Field<int>(0);
                 dgvTK_NCC.Rows[i].Cells[1].Value = dr.Field<string>(1);
                 dgvTK_NCC.Rows[i].Cells[2].Value = dr.Field<string>(2);
                 dgvTK_NCC.Rows[i].Cells[3].Value = dr.Field<string>(3);
@@ -121,7 +121,7 @@ namespace QLVT
             foreach (DataRow dr in dt.Rows)
             {
                 dgvTK_Khach.Rows.Add();
-                dgvTK_Khach.Rows[i].Cells[0].Value = dr.Field<string>(0);
+                dgvTK_Khach.Rows[i].Cells[0].Value = dr.Field<int>(0);
                 dgvTK_Khach.Rows[i].Cells[1].Value = dr.Field<string>(1);
                 dgvTK_Khach.Rows[i].Cells[2].Value = dr.Field<string>(2);
                 dgvTK_Khach.Rows[i].Cells[3].Value = dr.Field<string>(3);
@@ -131,6 +131,7 @@ namespace QLVT
         }
         private void LoadDataCmb(ComboBox cmb1, string name, string table)
         {
+            
             cnn.Open();
             string sql = @"Select "+name+" from "+table; 
             SqlDataAdapter da = new SqlDataAdapter(sql, cnn);
@@ -140,12 +141,19 @@ namespace QLVT
             int i = 0;
             foreach (DataRow dr in dt.Rows)
             {
-
-                tensp[i] = dr.Field<string>(0); //lấy trường đầu tiên trong DataTable
-                cmb1.Items.Add(tensp[i]);
-                i++;
+                try {
+                    tensp[i] = dr.Field<int>(0).ToString(); //lấy trường đầu tiên trong DataTable
+                    cmb1.Items.Add(tensp[i]);
+                    i++;
+                } catch {
+                    tensp[i] = dr.Field<string>(0); //lấy trường đầu tiên trong DataTable
+                    cmb1.Items.Add(tensp[i]);
+                    i++;
+                }
+                
             }
             cnn.Close();
+           
         }
         private void LoadDataLH()
         {
@@ -159,7 +167,7 @@ namespace QLVT
             foreach (DataRow dr in dt.Rows)
             {
                 dgvTK_LH.Rows.Add();
-                dgvTK_LH.Rows[i].Cells[0].Value = dr.Field<string>(0);
+                dgvTK_LH.Rows[i].Cells[0].Value = dr.Field<int>(0);
                 dgvTK_LH.Rows[i].Cells[1].Value = dr.Field<string>(1);
                 dgvTK_LH.Rows[i].Cells[2].Value = dr.Field<string>(2);
                 dgvTK_LH.Rows[i].Cells[3].Value = dr.Field<string>(3);
@@ -179,7 +187,7 @@ namespace QLVT
             foreach (DataRow dr in dt.Rows)
             {
                 dgvTK_HH.Rows.Add();
-                dgvTK_HH.Rows[i].Cells[0].Value = dr.Field<string>(0);
+                dgvTK_HH.Rows[i].Cells[0].Value = dr.Field<int>(0);
                 dgvTK_HH.Rows[i].Cells[1].Value = dr.Field<string>(1);
                 dgvTK_HH.Rows[i].Cells[2].Value = dr.Field<string>(2);
                 dgvTK_HH.Rows[i].Cells[3].Value = dr.Field<string>(3);

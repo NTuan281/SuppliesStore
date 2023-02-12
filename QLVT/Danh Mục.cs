@@ -24,7 +24,7 @@ namespace QLVT
             InitializeComponent();
             this.loai = loai;
         }
-        SqlConnection cnn = new SqlConnection(@"Data Source=DESKTOP-61R69JO\SQLEXPRESS;Initial Catalog=QUAN_LY_VAT_TU;Integrated Security=True");
+        SqlConnection cnn = new SqlConnection(@"Data Source=TUAN\MSSQLSERVER01;Initial Catalog=QUAN_LY_VAT_TU;Integrated Security=True");
         private void label39_Click(object sender, EventArgs e)
         {
 
@@ -46,7 +46,7 @@ namespace QLVT
             foreach (DataRow dr in dt.Rows)
             {
                 dgvKhachHang.Rows.Add();
-                dgvKhachHang.Rows[i].Cells[0].Value = dr.Field<string>(0);
+                dgvKhachHang.Rows[i].Cells[0].Value = dr.Field<int>(0);
                 dgvKhachHang.Rows[i].Cells[1].Value = dr.Field<string>(1);
                 dgvKhachHang.Rows[i].Cells[2].Value = dr.Field<string>(2);
                 dgvKhachHang.Rows[i].Cells[3].Value = dr.Field<string>(3);
@@ -67,7 +67,7 @@ namespace QLVT
             foreach (DataRow dr in dt.Rows)
             {
                 dgvHD_X.Rows.Add();
-                dgvHD_X.Rows[i].Cells[0].Value = dr.Field<string>(0);
+                dgvHD_X.Rows[i].Cells[0].Value = dr.Field<int>(0);
                 dgvHD_X.Rows[i].Cells[1].Value = dr.Field<DateTime>(1).ToString("dd-MM-yyyy");
                 dgvHD_X.Rows[i].Cells[2].Value = dr.Field<string>(2);
                 dgvHD_X.Rows[i].Cells[3].Value = dr.Field<string>(3);
@@ -87,7 +87,7 @@ namespace QLVT
             foreach (DataRow dr in dt.Rows)
             {
                 dgvLoaiHang.Rows.Add();
-                dgvLoaiHang.Rows[i].Cells[0].Value = dr.Field<string>(0);
+                dgvLoaiHang.Rows[i].Cells[0].Value = dr.Field<int>(0);
                 dgvLoaiHang.Rows[i].Cells[1].Value = dr.Field<string>(1);
                 dgvLoaiHang.Rows[i].Cells[2].Value = dr.Field<string>(2);
                 dgvLoaiHang.Rows[i].Cells[3].Value = dr.Field<string>(3);
@@ -106,7 +106,7 @@ namespace QLVT
             foreach (DataRow dr in dt.Rows)
             {
                 dgvNCC.Rows.Add();
-                dgvNCC.Rows[i].Cells[0].Value = dr.Field<string>(0);
+                dgvNCC.Rows[i].Cells[0].Value = dr.Field<int>(0);
                 dgvNCC.Rows[i].Cells[1].Value = dr.Field<string>(1);
                 dgvNCC.Rows[i].Cells[2].Value = dr.Field<string>(2);
                 dgvNCC.Rows[i].Cells[3].Value = dr.Field<string>(3);
@@ -188,9 +188,18 @@ namespace QLVT
             foreach (DataRow dr in dt.Rows)
             {
 
-                tensp[i] = dr.Field<string>(0); //lấy trường đầu tiên trong DataTable
-                cmb1.Items.Add(tensp[i]);
-                i++;
+                try
+                {
+                    tensp[i] = dr.Field<int>(0).ToString(); //lấy trường đầu tiên trong DataTable
+                    cmb1.Items.Add(tensp[i]);
+                    i++;
+                }
+                catch
+                {
+                    tensp[i] = dr.Field<string>(0); //lấy trường đầu tiên trong DataTable
+                    cmb1.Items.Add(tensp[i]);
+                    i++;
+                }
             }
             cnn.Close();
         }
@@ -205,8 +214,8 @@ namespace QLVT
             foreach (DataRow dr in dt.Rows)
             {
                 dgvHang.Rows.Add();
-                dgvHang.Rows[i].Cells[0].Value = dr.Field<string>(0);
-                dgvHang.Rows[i].Cells[1].Value = dr.Field<string>(1);
+                dgvHang.Rows[i].Cells[0].Value = dr.Field<int>(0);
+                dgvHang.Rows[i].Cells[1].Value = dr.Field<int>(1);
                 dgvHang.Rows[i].Cells[2].Value = dr.Field<string>(2);
                 dgvHang.Rows[i].Cells[3].Value = dr.Field<string>(3);
                 dgvHang.Rows[i].Cells[4].Value = dr.Field<string>(4);
@@ -226,7 +235,7 @@ namespace QLVT
             foreach (DataRow dr in dt.Rows)
             {
                 dgvHD_N.Rows.Add();
-                dgvHD_N.Rows[i].Cells[0].Value = dr.Field<string>(0);
+                dgvHD_N.Rows[i].Cells[0].Value = dr.Field<int>(0);
                 dgvHD_N.Rows[i].Cells[1].Value = dr.Field<DateTime>(1).ToString("dd-MM-yyyy");
                 dgvHD_N.Rows[i].Cells[2].Value = dr.Field<string>(2);
                 dgvHD_N.Rows[i].Cells[3].Value = dr.Field<string>(3);
@@ -287,7 +296,7 @@ namespace QLVT
             //Add dữ liệu vào sql
 
             cnn.Open();
-            string insertSql = @"insert into KHACHHANG values ('"+makh+"',N'"+tenkh+"',N'"+gender+"',N'"+diachi+"','"+sdt+"')";
+            string insertSql = @"insert into KHACHHANG values (N'"+tenkh+"',N'"+gender+"',N'"+diachi+"','"+sdt+"')";
             SqlCommand cmdNGUOIDUNG = new SqlCommand(insertSql, cnn);
             cmdNGUOIDUNG.ExecuteNonQuery();
             cnn.Close();
@@ -303,13 +312,6 @@ namespace QLVT
         {
             int count = 0;
             string messenger = "";
-            if (txtMAKH.Text == "")
-            {
-                messenger =messenger +  "\n Mã nv k được để trống" +"";
-                count++;
-            }
-            else
-                messenger = messenger +  "";
             if (txtName_KH.Text == "")
             {
                 messenger = messenger + "\nVui lòng nhập Tên !!";

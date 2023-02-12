@@ -19,7 +19,7 @@ namespace QLVT
             InitializeComponent();
         }
 
-        SqlConnection cnn = new SqlConnection(@"Data Source=DESKTOP-61R69JO\SQLEXPRESS;Initial Catalog=QUAN_LY_VAT_TU;Integrated Security=True");
+        SqlConnection cnn = new SqlConnection(@"Data Source=TUAN\MSSQLSERVER01;Initial Catalog=QUAN_LY_VAT_TU;Integrated Security=True");
 
         public Chi_tiết_hóa_đơn_nhập(string maHDN)
         {

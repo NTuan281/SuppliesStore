@@ -14,7 +14,7 @@ namespace QLVT
     
     public partial class Chi_Tiết_Hóa_Đơn_Xuất : Form
     {
-        SqlConnection cnn = new SqlConnection(@"Data Source=DESKTOP-61R69JO\SQLEXPRESS;Initial Catalog=QUAN_LY_VAT_TU;Integrated Security=True");
+        SqlConnection cnn = new SqlConnection(@"Data Source=TUAN\MSSQLSERVER01;Initial Catalog=QUAN_LY_VAT_TU;Integrated Security=True");
         private string MAHDX;
         int soluong;
         public Chi_Tiết_Hóa_Đơn_Xuất()

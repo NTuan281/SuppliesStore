@@ -17,7 +17,7 @@ namespace QLVT
         #region Contrustor
         public ketnoiSQL()
         {
-            StrCon = @"Data Source=DESKTOP-61R69JO\SQLEXPRESS;Initial Catalog=QUAN_LY_VAT_TU;Integrated Security=True";
+            StrCon = @"Data Source=TUAN\MSSQLSERVER01;Initial Catalog=QUAN_LY_VAT_TU;Integrated Security=True";
             Conn = new SqlConnection(StrCon);
         }
         #endregion

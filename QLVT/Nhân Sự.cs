@@ -26,7 +26,7 @@ namespace QLVT
             this.userName = userName;
         }
      
-        SqlConnection cnn = new SqlConnection(@"Data Source=DESKTOP-61R69JO\SQLEXPRESS;Initial Catalog=QUAN_LY_VAT_TU;Integrated Security=True");
+        SqlConnection cnn = new SqlConnection(@"Data Source=TUAN\MSSQLSERVER01;Initial Catalog=QUAN_LY_VAT_TU;Integrated Security=True");
         private void guna2DateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
 
@@ -555,7 +555,7 @@ namespace QLVT
             foreach (DataRow dr in dt.Rows)
             {
                 dgvInfo_NV.Rows.Add();
-                dgvInfo_NV.Rows[i].Cells[0].Value = dr.Field<string>(0);
+                dgvInfo_NV.Rows[i].Cells[0].Value = dr.Field<int>(0);
                 dgvInfo_NV.Rows[i].Cells[1].Value = dr.Field<string>(1);
                 dgvInfo_NV.Rows[i].Cells[2].Value = dr.Field<string>(4);
                 dgvInfo_NV.Rows[i].Cells[3].Value = dr.Field<string>(2);
